@@ -1,0 +1,40 @@
+.bsp
+
+.idea
+
+# CMake
+cmake-build-*/
+
+.idea/**/mongoSettings.xml
+
+# File-based project format
+*.iws
+
+# IntelliJ
+out/
+
+
+
+# Crashlytics plugin (for Android Studio and IntelliJ)
+com_crashlytics_export_strings.xml
+crashlytics.properties
+crashlytics-build.properties
+fabric.properties
+
+
+### Scala ###
+*.class
+*.log
+
+# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
+hs_err_pid*
+
+target/
+dist/
+.cache/
+
+/*.csv
+
+project/*-shim.sbt
+project/project/
+project/target/
