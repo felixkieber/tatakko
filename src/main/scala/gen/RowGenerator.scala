@@ -1,4 +1,6 @@
-import model.{Raw, RawRow, Row}
+package gen
+
+import model.{Raw, Row}
 
 trait RowGenerator[T <: Row | Raw] {
 

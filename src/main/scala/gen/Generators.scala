@@ -1,3 +1,5 @@
+package gen
+
 import model.*
 import util.{GenSupport, PDecider, RandomInstant}
 

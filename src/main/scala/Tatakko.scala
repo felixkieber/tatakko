@@ -1,5 +1,6 @@
-import cli.Config
+import gen.*
 import com.github.tototoshi.csv.*
+import conf.CommandLineOptions
 import scopt.OParser
 
 import java.io.File
@@ -9,7 +10,7 @@ object Tatakko {
 
   def main(args: Array[String]): Unit = {
 
-    OParser.parse(Config.parser, args, Config(50, 400, 10_000)) match {
+    OParser.parse(CommandLineOptions.parser, args, CommandLineOptions.defaults) match {
       case Some(config) =>
         val userGen = UserGenerator()
 

@@ -1,6 +1,9 @@
+.DS_Store
+
 .bsp
 
 .idea
+.idea_modules
 
 # CMake
 cmake-build-*/
@@ -26,15 +29,34 @@ fabric.properties
 *.class
 *.log
 
-# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
 
 target/
 dist/
 .cache/
+lib_managed/
+src_managed/
+project/boot/
+project/plugins/project/
+project/local-plugins.sbt
+.history
+
+.scala_dependencies
+.cache
+.classpath
+.project
+.settings
+classes/
 
 /*.csv
 
 project/*-shim.sbt
 project/project/
 project/target/
+
+/.worksheet/
+
+.dotty-ide-artifact
+.dotty-ide.json
+
+.vscode

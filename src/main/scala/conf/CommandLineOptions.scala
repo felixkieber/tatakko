@@ -1,12 +1,23 @@
-package cli
+package conf
 
 import scopt.OParser
 
-case class Config(userCount: Int, questionCount: Int, questionViewCount: Int)
+import java.io.File
+import java.nio.file.{FileSystems, Files, Paths}
 
-object Config {
-  def parser: OParser[Unit, Config] = {
-    val builder = OParser.builder[Config]
+case class CommandLineOptions(userCount: Int, questionCount: Int, questionViewCount: Int, destinationFolder: File)
+
+object CommandLineOptions {
+
+  val defaults: CommandLineOptions = CommandLineOptions(
+    userCount = 50,
+    questionCount = 400,
+    questionViewCount = 50_000,
+    destinationFolder = Paths.get(".").toFile,
+  )
+
+  def parser: OParser[Unit, CommandLineOptions] = {
+    val builder = OParser.builder[CommandLineOptions]
     {
       import builder._
       OParser.sequence(
@@ -27,6 +38,11 @@ object Config {
           .text("number of question views to generate. default 10000")
           .validate(v => if (v > 0) success else failure("<views> must be >0"))
           .valueName("<views>"),
+        opt[File]('d', "dest")
+          .action((dest, conf) => conf.copy(destinationFolder = dest))
+          .text(s"destination folder where the files will be written. default .${FileSystems.getDefault.getSeparator}")
+          .validate(f => if (f.isDirectory) success else failure("<dest> must be a valid directory"))
+          .valueName("<dest>"),
         help('h', "help")
           .text("prints this usage text"),
       )
