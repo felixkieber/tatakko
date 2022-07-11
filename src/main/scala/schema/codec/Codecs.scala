@@ -1,3 +1,4 @@
+package li.flxkbr
 package schema.codec
 
 import io.circe.Decoder.Result

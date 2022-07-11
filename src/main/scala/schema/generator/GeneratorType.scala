@@ -1,8 +1,10 @@
+package li.flxkbr
 package schema.generator
+
+import schema.generator.*
 
 import io.circe.Decoder.Result
 import io.circe.{Decoder, HCursor}
-import schema.generator.*
 
 trait GeneratorType(val value: String) {
   type P <: ColumnParameters

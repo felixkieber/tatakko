@@ -1,6 +1,8 @@
-import gen.*
+package li.fkxbr
+
 import com.github.tototoshi.csv.*
-import conf.CommandLineOptions
+import li.flxkbr.conf.CommandLineOptions
+import li.flxkbr.gen.*
 import scopt.OParser
 
 import java.io.File

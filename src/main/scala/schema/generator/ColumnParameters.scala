@@ -1,3 +1,4 @@
+package li.flxkbr
 package schema.generator
 
 import io.circe.{Decoder, DecodingFailure}

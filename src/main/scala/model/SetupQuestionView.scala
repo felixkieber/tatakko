@@ -1,3 +1,4 @@
+package li.flxkbr
 package model
 
 import java.time.Instant

@@ -1,3 +1,4 @@
+package li.flxkbr
 package model
 
 type Raw = Seq[Any]

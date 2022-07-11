@@ -1,3 +1,4 @@
+package li.flxkbr
 package util
 
 import java.time.Instant
@@ -11,7 +12,7 @@ trait GenSupport {
     def pickAny: A = {
       is(Random.nextInt(is.size))
     }
-    
+
   extension (i: Instant)
     def randomAfter(range: Int, unit: TemporalUnit): Instant = {
       i.plus(1 + Random.nextInt(range), unit)

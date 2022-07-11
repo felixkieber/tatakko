@@ -1,3 +1,4 @@
+package li.flxkbr
 package gen
 
 import model.{Raw, Row}

@@ -1,3 +1,4 @@
+package li.flxkbr
 package conf
 
 import scopt.OParser
