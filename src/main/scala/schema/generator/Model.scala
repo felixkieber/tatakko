@@ -1,10 +1,12 @@
-package schema
+package schema.generator
+
+import schema.*
 
 opaque type SchemaName = String
 object SchemaName {
   def convert(name: String): SchemaName = name.pathSafe
 }
-final case class Schema(
+class Schema(
     name: SchemaName,
     count: Int,
     columns: Seq[Column[GeneratorType]],
@@ -15,13 +17,11 @@ object ColumnName {
   def convert(name: String): ColumnName = name.pathSafe
 }
 
-case class Column[T <: GeneratorType](
+class Column[T <: GeneratorType](
     name: ColumnName,
     `type`: T,
-    parameters: ColumnParameters[T],
+    parameters: `type`.P,
 )
-
-trait ColumnParameters[T <: GeneratorType]
 
 final case class ColumnPath(schema: SchemaName, column: ColumnName)
 

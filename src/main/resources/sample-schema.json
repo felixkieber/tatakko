@@ -10,7 +10,8 @@
       "name": {
         "type": "string",
         "parameters": {
-          "domain": "person-name"
+          "domain": "person-name",
+          "cardinality": "full"
         }
       },
       "age": {

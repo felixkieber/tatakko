@@ -3,6 +3,7 @@ package schema.codec
 import io.circe.Decoder.Result
 import io.circe.{Decoder, DecodingFailure, HCursor}
 import schema.*
+import schema.generator.*
 
 given columnDecoder: Decoder[Column[_]] = new Decoder[Column[_]] {
   override final def apply(c: HCursor): Result[Column[_]] = {
