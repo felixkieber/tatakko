@@ -1,9 +1,11 @@
 .DS_Store
 
 .bsp
-
+.metals
+/project/**/metals.sbt
 .idea
 .idea_modules
+.bloop
 
 # CMake
 cmake-build-*/

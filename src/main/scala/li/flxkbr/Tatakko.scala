@@ -1,4 +1,4 @@
-package li.fkxbr
+package li.flxkbr
 
 import com.github.tototoshi.csv.*
 import li.flxkbr.conf.CommandLineOptions

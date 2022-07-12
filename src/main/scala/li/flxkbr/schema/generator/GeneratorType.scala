@@ -2,13 +2,13 @@ package li.flxkbr
 package schema.generator
 
 import schema.generator.*
+import schema.codec.*
 
 import io.circe.Decoder.Result
 import io.circe.{Decoder, HCursor}
 
 trait GeneratorType(val value: String) {
-  type P <: ColumnParameters
-  def parameterDecoder: Decoder[P]
+  def columnDecoder: Decoder[Column]
 }
 
 object GeneratorType {
@@ -16,30 +16,26 @@ object GeneratorType {
   import ParameterDecoders.given
 
   case object Serial extends GeneratorType("serial") {
-    type P = NoParameters.type
-    override val parameterDecoder: Decoder[P] = summon
+    override def columnDecoder: Decoder[Column] = ColumnDecoders.serialColumnDecoder
   }
 
   case object Int extends GeneratorType("int") {
-    override type P = IntParameters
-    override def parameterDecoder: Decoder[P] = summon
+    override def columnDecoder: Decoder[Column] = ???
   }
 
   case object String extends GeneratorType("string") {
-    override type P = StringParameters
-
-    override def parameterDecoder: Decoder[StringParameters] = summon
+    override def columnDecoder: Decoder[Column] = ???
   }
 
   case object Instant extends GeneratorType("instant") {
-    override type P = InstantParameters
-
-    override def parameterDecoder: Decoder[InstantParameters] = summon
+    override def columnDecoder: Decoder[Column] = ???
   }
 
   val values: Seq[GeneratorType] = List(
     Serial,
     Int,
+    String,
+    Instant,
   )
 
   def ofValue(value: String): Option[GeneratorType] = {

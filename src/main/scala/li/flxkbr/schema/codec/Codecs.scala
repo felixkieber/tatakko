@@ -6,15 +6,14 @@ import io.circe.{Decoder, DecodingFailure, HCursor}
 import schema.*
 import schema.generator.*
 
-given columnDecoder: Decoder[Column[_]] = new Decoder[Column[_]] {
-  override final def apply(c: HCursor): Result[Column[_]] = {
+given columnDecoder: Decoder[Column] = new Decoder[Column] {
+  override final def apply(c: HCursor): Result[Column] = {
     for {
-      name <- c.key.toRight(DecodingFailure("Cannot retrieve key of column object", c.history)).map(ColumnName.convert)
-      `type` <- c.downField("type").as[String].flatMap { t =>
+      genType <- c.downField("type").as[String].flatMap { t =>
         GeneratorType.ofValue(t).toRight(DecodingFailure(s"Invalid generator type $t", c.history))
       }
-      parameters <- `type`.parameterDecoder.apply(c)
-    } yield Column(name, `type`, parameters)
+      column <- c.as[Column](genType.columnDecoder)
+    } yield column
   }
 }
 

@@ -10,18 +10,7 @@ object SchemaName {
 class Schema(
     name: SchemaName,
     count: Int,
-    columns: Seq[Column[GeneratorType]],
-)
-
-opaque type ColumnName = String
-object ColumnName {
-  def convert(name: String): ColumnName = name.pathSafe
-}
-
-class Column[T <: GeneratorType](
-    name: ColumnName,
-    `type`: T,
-    parameters: `type`.P,
+    columns: Seq[Column],
 )
 
 final case class ColumnPath(schema: SchemaName, column: ColumnName)

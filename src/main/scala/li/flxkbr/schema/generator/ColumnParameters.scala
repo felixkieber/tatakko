@@ -9,6 +9,7 @@ import scala.util.Try
 trait ColumnParameters
 
 object NoParameters                                                   extends ColumnParameters
+type NoParameters = NoParameters.type
 case class IntParameters(min: Int, max: Int)                          extends ColumnParameters
 case class StringParameters(domain: Option[String], cardinality: Int) extends ColumnParameters
 case class InstantParameters(start: Instant, end: Instant)            extends ColumnParameters
@@ -22,7 +23,8 @@ object ParameterDecoders {
     }
   }
 
-  given noParametersDecoder: Decoder[NoParameters.type] = Decoder.const(NoParameters)
+  given noParametersDecoder: Decoder[NoParameters] = Decoder.const(NoParameters)
+  
   given intParametersDecoder: Decoder[IntParameters] = Decoder.instance(c =>
     for {
       min <- c.getOrElse("min")(0)
