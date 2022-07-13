@@ -1,17 +1,4 @@
-package li.flxkbr
-package schema.generator
-
-import schema.*
-
-opaque type SchemaName = String
-object SchemaName {
-  def convert(name: String): SchemaName = name.pathSafe
-}
-class Schema(
-    name: SchemaName,
-    count: Int,
-    columns: Seq[Column],
-)
+package li.flxkbr.schema.generator
 
 final case class ColumnPath(schema: SchemaName, column: ColumnName)
 

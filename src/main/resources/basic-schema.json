@@ -1,0 +1,12 @@
+{
+  "schemas": [
+    {
+      "_name": "only_id",
+      "_count": 500,
+      "id": {
+        "type": "serial",
+        "p_key": true
+      }
+    }
+  ]
+}

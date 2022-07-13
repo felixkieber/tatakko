@@ -1,4 +1,3 @@
-package li.flxkbr
-package schema
+package li.flxkbr.schema
 
 class SchemaParser {}

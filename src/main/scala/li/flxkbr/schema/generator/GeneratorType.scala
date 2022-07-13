@@ -16,19 +16,19 @@ object GeneratorType {
   import ParameterDecoders.given
 
   case object Serial extends GeneratorType("serial") {
-    override def columnDecoder: Decoder[Column] = ColumnDecoders.serialColumnDecoder
+    override lazy val columnDecoder: Decoder[Column] = ColumnDecoders.noParametersColumnDecoder(Serial)
   }
 
   case object Int extends GeneratorType("int") {
-    override def columnDecoder: Decoder[Column] = ???
+    override val columnDecoder: Decoder[Column] = ColumnDecoders.intColumnDecoder
   }
 
   case object String extends GeneratorType("string") {
-    override def columnDecoder: Decoder[Column] = ???
+    override val columnDecoder: Decoder[Column] = ???
   }
 
   case object Instant extends GeneratorType("instant") {
-    override def columnDecoder: Decoder[Column] = ???
+    override val columnDecoder: Decoder[Column] = ???
   }
 
   val values: Seq[GeneratorType] = List(
