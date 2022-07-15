@@ -2,7 +2,7 @@ package li.flxkbr.schema.codec
 
 import io.circe.*
 import io.circe.parser.*
-import li.flxkbr.schema.codec.BasicTypeCodecSupport
+import li.flxkbr.schema.codec.BasicTypeCodecs
 import li.flxkbr.schema.generator.*
 import li.flxkbr.testutil.CustomMatcherSupport
 import li.flxkbr.testutil.UnitSpec

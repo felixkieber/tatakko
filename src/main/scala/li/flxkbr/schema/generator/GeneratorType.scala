@@ -31,11 +31,16 @@ object GeneratorType {
     override val columnDecoder: Decoder[Column] = ???
   }
 
+  case object Reference extends GeneratorType("ref") {
+    override def columnDecoder: Decoder[Column] = ???
+  }
+
   val values: Seq[GeneratorType] = List(
     Serial,
     Int,
     String,
     Instant,
+    Reference,
   )
 
   def ofValue(value: String): Option[GeneratorType] = {

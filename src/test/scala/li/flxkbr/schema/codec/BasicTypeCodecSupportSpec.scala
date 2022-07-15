@@ -20,7 +20,7 @@ class BasicTypeCodecSupportSpec extends UnitSpec {
 
     val json = parse(rawJson).value
 
-    json.hcursor.get[Instant]("time")(using BasicTypeCodecSupport.instantDecoder).right.value should be(now)
+    json.hcursor.get[Instant]("time")(using BasicTypeCodecs.instantDecoder).right.value should be(now)
   }
 
   it should "decode special keyword `now`" in {
@@ -34,7 +34,7 @@ class BasicTypeCodecSupportSpec extends UnitSpec {
 
     val json = parse(rawJson).value
 
-    json.hcursor.get[Instant]("time")(using BasicTypeCodecSupport.instantDecoder).right.value should beInstantWithin(
+    json.hcursor.get[Instant]("time")(using BasicTypeCodecs.instantDecoder).right.value should beInstantWithin(
       20.millis,
       Instant.now(),
     )

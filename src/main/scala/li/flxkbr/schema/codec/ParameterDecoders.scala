@@ -6,7 +6,7 @@ import java.time.Instant
 
 object ParameterDecoders {
 
-  import BasicTypeCodecSupport.given
+  import BasicTypeCodecs.given
 
   given intParametersDecoder: Decoder[IntParameters] = Decoder.instance(c =>
     for {

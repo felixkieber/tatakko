@@ -96,10 +96,10 @@ class ColumnDecodersSpec extends UnitSpec {
       Column(ColumnName.convert("intcol3"), GeneratorType.Int, IntParameters(0, 1023), false)
     )
     json.hcursor.get[Column]("intcol4").value should be(
-      Column(ColumnName.convert("intcol4"), GeneratorType.Int, IntParameters(0, Int.MaxValue), false)
+      Column(ColumnName.convert("intcol4"), GeneratorType.Int, IntParameters.Defaults, false)
     )
     json.hcursor.get[Column]("intcol5").value should be(
-      Column(ColumnName.convert("intcol5"), GeneratorType.Int, IntParameters(0, Int.MaxValue), false)
+      Column(ColumnName.convert("intcol5"), GeneratorType.Int, IntParameters.Defaults, false)
     )
   }
 }

@@ -5,11 +5,13 @@ import io.circe.Decoder
 import io.circe.DecodingFailure
 import io.circe.HCursor
 import li.flxkbr.schema.generator.*
+import scala.util.Try
 
 object ColumnDecoders {
 
   private case class CommonFields(name: ColumnName, primaryKey: Boolean)
 
+  import BasicTypeCodecs.columnPathDecoder
   import ParameterDecoders.given
   import Codecs.ColumnFields.*
 
@@ -35,8 +37,16 @@ object ColumnDecoders {
     for {
       _             <- assertType(cursor, GeneratorType.Int)
       common        <- retrieveCommonFields(cursor)
-      intParameters <- cursor.get[IntParameters]("parameters")
+      intParameters <- cursor.getOrElse[IntParameters]("parameters")(IntParameters.Defaults)
     } yield Column(common.name, GeneratorType.Int, intParameters, common.primaryKey)
+  }
+
+  val referenceColumnDecoder: Decoder[Column] = Decoder.instance { cursor =>
+    for {
+      _         <- assertType(cursor, GeneratorType.Reference)
+      common    <- retrieveCommonFields(cursor)
+      reference <- cursor.get[ColumnPath]("target")
+    } yield Column(common.name, GeneratorType.Reference, ReferenceParameters(reference), common.primaryKey)
   }
 
   private def retrieveCommonFields(cursor: HCursor): Either[DecodingFailure, CommonFields] = {

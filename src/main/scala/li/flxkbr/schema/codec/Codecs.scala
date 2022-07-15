@@ -7,7 +7,7 @@ import cats.implicits.toTraverseOps
 
 object Codecs {
 
-  import BasicTypeCodecSupport.given
+  import BasicTypeCodecs.given
 
   object SchemaFields {
     val Name: String  = "_name"

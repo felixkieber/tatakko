@@ -3,12 +3,13 @@ package li.flxkbr.schema.codec
 import io.circe.Decoder
 import io.circe.DecodingFailure
 import li.flxkbr.schema.generator.ColumnName
+import li.flxkbr.schema.generator.ColumnPath
 import li.flxkbr.schema.generator.SchemaName
 
 import java.time.Instant
 import scala.util.Try
 
-object BasicTypeCodecSupport {
+object BasicTypeCodecs {
   given instantDecoder: Decoder[Instant] = Decoder.instance { c =>
     c.as[String].flatMap {
       case "now" => Right(Instant.now())
@@ -19,4 +20,7 @@ object BasicTypeCodecSupport {
   given columnNameDecoder: Decoder[ColumnName] = Decoder.decodeString.map(ColumnName.convert)
 
   given schemaNameDecoder: Decoder[SchemaName] = Decoder.decodeString.map(SchemaName.convert)
+
+  given columnPathDecoder: Decoder[ColumnPath] = Decoder.decodeString.emapTry(raw => Try(ColumnPath.must(raw)))
+
 }
