@@ -18,14 +18,14 @@ object ParameterDecoders {
   given stringParametersDecoder: Decoder[StringParameters] = Decoder.instance { c =>
     for {
       domain      <- c.get[Option[String]]("domain")
-      cardinality <- c.getOrElse("cardinality")(-1)
+      cardinality <- c.getOrElse[Cardinality]("cardinality")(Cardinality.Full)
     } yield StringParameters(domain, cardinality)
   }
 
   given instantParameterDecoder: Decoder[InstantParameters] = Decoder.instance { c =>
     for {
       start <- c.get[Instant]("start")(using instantDecoder)
-      end   <- c.get[Instant]("end")
+      end   <- c.getOrElse("end")(Instant.now())(using instantDecoder)
     } yield InstantParameters(start, end)
   }
 }

@@ -1,7 +1,9 @@
 package li.flxkbr.schema.codec
 
+import cats.implicits.catsStdInstancesForTry
 import io.circe.Decoder
 import io.circe.DecodingFailure
+import li.flxkbr.schema.generator.Cardinality
 import li.flxkbr.schema.generator.ColumnName
 import li.flxkbr.schema.generator.ColumnPath
 import li.flxkbr.schema.generator.SchemaName
@@ -21,6 +23,7 @@ object BasicTypeCodecs {
 
   given schemaNameDecoder: Decoder[SchemaName] = Decoder.decodeString.map(SchemaName.convert)
 
-  given columnPathDecoder: Decoder[ColumnPath] = Decoder.decodeString.emapTry(raw => Try(ColumnPath.must(raw)))
+  given columnPathDecoder: Decoder[ColumnPath] = Decoder.decodeString.emapTry(ColumnPath.safe)
 
+  given cardinalityDecoder: Decoder[Cardinality] = Decoder.decodeString.emapTry(Cardinality.safe)
 }

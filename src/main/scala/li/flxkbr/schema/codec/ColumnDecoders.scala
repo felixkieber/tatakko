@@ -37,7 +37,7 @@ object ColumnDecoders {
     for {
       _             <- assertType(cursor, GeneratorType.Int)
       common        <- retrieveCommonFields(cursor)
-      intParameters <- cursor.getOrElse[IntParameters]("parameters")(IntParameters.Defaults)
+      intParameters <- cursor.getParametersWithDefaults[IntParameters](IntParameters.Defaults)
     } yield Column(common.name, GeneratorType.Int, intParameters, common.primaryKey)
   }
 
@@ -49,10 +49,31 @@ object ColumnDecoders {
     } yield Column(common.name, GeneratorType.Reference, ReferenceParameters(reference), common.primaryKey)
   }
 
+  val stringColumnDecoder: Decoder[Column] = Decoder.instance { cursor =>
+    for {
+      _             <- assertType(cursor, GeneratorType.String)
+      common        <- retrieveCommonFields(cursor)
+      strParameters <- cursor.getParameters[StringParameters]
+    } yield Column(common.name, GeneratorType.String, strParameters, common.primaryKey)
+  }
+
+  val instantColumnDecoder: Decoder[Column] = Decoder.instance { cursor =>
+    for {
+      _              <- assertType(cursor, GeneratorType.Instant)
+      common         <- retrieveCommonFields(cursor)
+      instParameters <- cursor.getParameters[InstantParameters]
+    } yield Column(common.name, GeneratorType.Instant, instParameters, common.primaryKey)
+  }
+
   private def retrieveCommonFields(cursor: HCursor): Either[DecodingFailure, CommonFields] = {
     for {
       name <- cursor.key.toRight(DecodingFailure("Could not retrieve key of column object", cursor.history))
       pkey <- cursor.getOrElse[Boolean](PrimaryKey)(false)
     } yield CommonFields(ColumnName.convert(name), pkey)
   }
+
+  extension (c: HCursor)
+    private def getParameters[P: Decoder]                          = c.get[P]("parameters")
+    private def getParametersWithDefaults[P: Decoder](defaults: P) = c.getOrElse("parameters")(defaults)
+
 }

@@ -24,15 +24,15 @@ object GeneratorType {
   }
 
   case object String extends GeneratorType("string") {
-    override val columnDecoder: Decoder[Column] = ???
+    override val columnDecoder: Decoder[Column] = ColumnDecoders.stringColumnDecoder
   }
 
   case object Instant extends GeneratorType("instant") {
-    override val columnDecoder: Decoder[Column] = ???
+    override val columnDecoder: Decoder[Column] = ColumnDecoders.instantColumnDecoder
   }
 
   case object Reference extends GeneratorType("ref") {
-    override def columnDecoder: Decoder[Column] = ???
+    override def columnDecoder: Decoder[Column] = ColumnDecoders.referenceColumnDecoder
   }
 
   val values: Seq[GeneratorType] = List(

@@ -1,11 +1,11 @@
 package li.flxkbr.schema.codec
 
+import cats.implicits.catsSyntaxOptionId
 import io.circe.*
 import io.circe.parser.*
 import li.flxkbr.schema.codec.BasicTypeCodecs
 import li.flxkbr.schema.generator.*
-import li.flxkbr.testutil.CustomMatcherSupport
-import li.flxkbr.testutil.UnitSpec
+import li.flxkbr.testutil.*
 import org.scalatest.EitherValues
 
 import java.time.Instant
@@ -55,5 +55,45 @@ class ParameterDecodersSpec extends UnitSpec {
     json2.hcursor.get[IntParameters]("parameters").right.value should be(IntParameters(100, Int.MaxValue))
     json3.hcursor.get[IntParameters]("parameters").right.value should be(IntParameters(0, 6))
     json4.hcursor.get[IntParameters]("parameters").right.value should be(IntParameters(0, Int.MaxValue))
+  }
+
+  "stringParametersDecoder" should "decode valid parameters" in {
+    val jsonAndResults = List(
+      (
+        """{
+        "parameters": {
+          "domain": "my-domain",
+          "cardinality": "full"
+        }
+      }
+      """,
+        StringParameters("my-domain".some, Cardinality.Full),
+      ),
+      (
+        """{
+        "parameters": {
+          "cardinality": "12"
+        }
+      }
+      """,
+        StringParameters(None, Cardinality.must(12)),
+      ),
+      (
+        """{
+        "parameters": {
+          "cardinality": 19
+        }
+      }
+      """,
+        StringParameters(None, Cardinality.must(19)),
+      ),
+      (
+        """{
+        "parameters": {}
+      }
+      """,
+        StringParameters(None, Cardinality.Full),
+      ),
+    ).map(_.)
   }
 }
