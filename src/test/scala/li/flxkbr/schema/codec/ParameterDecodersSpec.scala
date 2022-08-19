@@ -94,6 +94,12 @@ class ParameterDecodersSpec extends UnitSpec {
       """,
         StringParameters(None, Cardinality.Full),
       ),
-    ).map(_.)
+    ).map { case (jsonString, expected) =>
+       (parse(jsonString), expected)
+    }
+
+    assume(jsonAndResults.forall(_._1.isRight))
+
+    
   }
 }
