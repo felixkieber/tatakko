@@ -1,0 +1,33 @@
+{
+  "_name": "players",
+  "_count": 500,
+  "id": {
+    "type": "serial",
+    "p_key": true
+  },
+  "name": {
+    "type": "string",
+    "parameters": {
+      "domain": "person-name",
+      "cardinality": "full"
+    }
+  },
+  "age": {
+    "type": "int",
+    "parameters": {
+      "min": 15,
+      "max": 69
+    }
+  },
+  "joined_ts": {
+    "type": "instant",
+    "parameters": {
+      "start": "2012-01-01T00:00:00.000Z",
+      "end": "2012-06-01T00:00:00.000Z"
+    }
+  },
+  "country": {
+    "type": "ref",
+    "target": "country.id"
+  }
+}

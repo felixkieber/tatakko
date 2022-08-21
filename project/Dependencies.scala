@@ -12,14 +12,17 @@ object Dependencies {
   ).map(_ % circeVersion)
 
   private lazy val catsDeps: Seq[ModuleID] = Seq(
-    "org.typelevel" %% "cats-core"
+    "org.typelevel" %% "cats-core",
   ).map(_ % catsVersion)
+
+  // private lazy val kittens =
+  //   "org.typelevel" %% "kittens" % "3.0.0-M4"
 
   lazy val main: Seq[ModuleID] = Seq(
     "com.github.tototoshi" %% "scala-csv" % "1.3.10",
     "com.github.scopt"     %% "scopt"     % "4.1.0",
     "org.scalactic"        %% "scalactic" % scalatestVersion,
-  ) ++ circeDeps ++ catsDeps
+  ) ++ circeDeps ++ catsDeps //:+ kittens
 
   lazy val test: Seq[ModuleID] = Seq(
     "org.scalatest" %% "scalatest" % scalatestVersion

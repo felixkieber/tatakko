@@ -6,7 +6,7 @@ object SchemaName {
   def convert(name: String): SchemaName = name.pathSafe
 }
 
-class Schema(
+case class Schema(
     name: SchemaName,
     count: Int,
     columns: Seq[Column],
