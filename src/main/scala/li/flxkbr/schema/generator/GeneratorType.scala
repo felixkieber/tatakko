@@ -16,7 +16,7 @@ object GeneratorType {
   import ParameterDecoders.given
 
   case object Serial extends GeneratorType("serial") {
-    override lazy val columnDecoder: Decoder[Column] = ColumnDecoders.noParametersColumnDecoder(Serial)
+    override val columnDecoder: Decoder[Column] = ColumnDecoders.noParametersColumnDecoder(Serial)
   }
 
   case object Int extends GeneratorType("int") {
@@ -32,7 +32,7 @@ object GeneratorType {
   }
 
   case object Reference extends GeneratorType("ref") {
-    override def columnDecoder: Decoder[Column] = ColumnDecoders.referenceColumnDecoder
+    override val columnDecoder: Decoder[Column] = ColumnDecoders.referenceColumnDecoder
   }
 
   val values: Seq[GeneratorType] = List(

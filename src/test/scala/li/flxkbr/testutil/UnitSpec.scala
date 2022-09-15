@@ -10,6 +10,7 @@ abstract class UnitSpec
     with should.Matchers
     with OptionValues
     with EitherValues
+    with TryValues
     with Inside
     with Inspectors
     with CustomMatcherSupport
