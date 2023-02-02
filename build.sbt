@@ -1,6 +1,6 @@
 ThisBuild / version      := "0.1.0-SNAPSHOT"
 ThisBuild / organization := "li.flxkbr"
-ThisBuild / scalaVersion := "3.1.3"
+ThisBuild / scalaVersion := "3.2.1"
 
 lazy val assemblySettings: Seq[SettingsDefinition] = Seq(
   assembly / assemblyJarName := "tatakko.jar",
@@ -15,7 +15,6 @@ lazy val root = (project in file("."))
   .settings(
     name := "tatakko",
     libraryDependencies ++= Dependencies.all,
-    idePackagePrefix := Some("li.flxkbr"),
   )
   .settings(assemblySettings: _*)
   .settings(testSettings: _*)
