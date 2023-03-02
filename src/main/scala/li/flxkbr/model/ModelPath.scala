@@ -4,6 +4,7 @@ import cats.MonadError
 import cats.MonadThrow
 import cats.effect.instances.AllInstances
 import cats.implicits.catsSyntaxTuple2Semigroupal
+import io.circe.Decoder
 
 opaque type FieldName = String
 
@@ -20,6 +21,9 @@ opaque type ModelName = String
 
 object ModelName {
   def safe[F[_]](name: String)(using me: MonadThrow[F]): F[ModelName] = safeName(name)
+
+  given Decoder[ModelName] = Decoder.decodeString.emapTry(ModelName.safe)
+
 }
 
 case class ModelPath(modelName: ModelName, fieldName: FieldName)
@@ -34,4 +38,5 @@ object ModelPath {
     if split.length != 2 || split(0).isEmpty || split(1).isEmpty then me.raiseError(MalformedPathException(rawPath))
     else (ModelName.safe(split(0)), FieldName.safe(split(1))).mapN(ModelPath.apply)
   }
+
 }
